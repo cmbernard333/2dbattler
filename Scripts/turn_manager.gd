@@ -23,7 +23,9 @@ func begin_next_turn():
 		# favor player with ties
 		cur_char = player_char if player_roll >= enemy_roll else enemy_char
 	
-	SignalBus.character_begin_turn.emit(cur_char)
+	var opponent: Character = enemy_char if cur_char == player_char else player_char	
+	
+	SignalBus.character_begin_turn.emit(cur_char, opponent)
 	
 # end the current turn
 func end_current_turn():

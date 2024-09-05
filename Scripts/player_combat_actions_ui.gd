@@ -18,7 +18,7 @@ func _display_combat_actions(combat_actions: Array[CombatAction]):
 			button.visible = false
 
 # change visibility of this node based on if the character is the player
-func _on_character_begin_turn(character: Character):
+func _on_character_begin_turn(character: Character, opponent: Character):
 	visible = character.is_player
 	if character.is_player:
 		_display_combat_actions(character.combat_actions)

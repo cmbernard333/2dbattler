@@ -32,9 +32,23 @@ func use_combat_action(action: CombatAction, opponent: Character):
 	elif action.heal > 0:
 		self.heal(action.heal)
 	SignalBus.character_end_turn.emit()
+	
+	
+func _decide_combat_action(opponent: Character):
+	var health_percent: float = float(cur_hp) / float(max_hp)
+	if randf() > health_percent + 0.2:
+		# find the heal action and use it - first is fine
+		var heal_actions: Array[CombatAction] = combat_actions.filter(func(action): return action.heal > 0)
+		use_combat_action(heal_actions[0], opponent)
+	else:
+		# find the highest damage action and use it
+		var damage_actions: Array[CombatAction] = combat_actions.filter(func(action): return action.damage > 0)
+		use_combat_action(damage_actions[0], opponent)
 
-func _on_character_begin_turn(character: Character):
-	pass
+func _on_character_begin_turn(character: Character, opponent: Character):
+	if character == self and !is_player:
+		# basic AI decision function
+		_decide_combat_action(opponent)
 	
 func _update_health_bar():
 	health_bar.value = cur_hp
