@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxa0diwctgyli"]
+[gd_scene load_steps=14 format=3 uid="uid://cxa0diwctgyli"]
 
 [ext_resource type="Script" path="res://Scripts/turn_manager.gd" id="1_sfemj"]
 [ext_resource type="PackedScene" uid="uid://5lkctsoswdnh" path="res://Scenes/character.tscn" id="1_t4oh7"]
@@ -10,6 +10,14 @@
 [ext_resource type="Resource" uid="uid://bxcllyjdkqa2k" path="res://Resources/CombatActions/stomp.tres" id="6_13jgt"]
 [ext_resource type="Script" path="res://Scripts/combat_action_button.gd" id="9_6ityj"]
 [ext_resource type="Script" path="res://Scripts/player_combat_actions_ui.gd" id="9_p1a86"]
+[ext_resource type="Script" path="res://Scenes/panel.gd" id="11_260br"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id4hb"]
+shadow_size = 3
+shadow_offset = Vector2(3, 6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_32121"]
+font_size = 32
 
 [node name="Battle Scene" type="Node2D" node_paths=PackedStringArray("player_char", "enemy_char")]
 script = ExtResource("1_sfemj")
@@ -57,6 +65,26 @@ script = ExtResource("9_6ityj")
 layout_mode = 2
 text = "Slash (5 DMG)"
 script = ExtResource("9_6ityj")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -169.0
+offset_top = -105.0
+offset_right = 169.0
+offset_bottom = 116.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_id4hb")
+script = ExtResource("11_260br")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 330.0
+offset_bottom = 213.0
+text = "You Defeated!"
+label_settings = SubResource("LabelSettings_32121")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="PlayerCombatActionsUI/CombatActionButton" to="PlayerCombatActionsUI/CombatActionButton" method="_on_pressed"]
 [connection signal="pressed" from="PlayerCombatActionsUI/CombatActionButton2" to="PlayerCombatActionsUI/CombatActionButton2" method="_on_pressed"]

@@ -37,10 +37,6 @@ func end_current_turn():
 # a character has died
 func character_died(character: Character):
 	game_over = true
-	if character.is_player == true:
-		print("You died!")
-	else:
-		print("You defeated!")
 
 func character_combat_action(combat_action: CombatAction):
 	var target = enemy_char if cur_char == player_char else player_char
